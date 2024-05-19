@@ -1,0 +1,92 @@
+public class no{
+    public int valor;
+    public no proximo;
+
+    public no(int valor){
+        this.valor = valor;
+        this.proximo = null;
+    }
+
+}
+
+public class fila{
+    public no primeiro;
+    public no ultimo;
+
+    public fila(){
+        this.primeiro = null;
+        this.ultimo = null;
+    }
+
+    public void enfileirar(int valor){
+        no inserir = new no(valor);
+
+        if(this.primeiro == null){
+            this.primeiro = inserir;
+            this.ultimo = inserir;
+        } else {
+            this.ultimo.proximo = inserir;
+            this.ultimo = this.ultimo.proximo;
+        }
+    }
+
+    public int desenfileirar(){
+
+        if(this.primeiro == null){
+            return -1;
+        } else {
+            int item = this.primeiro.valor;
+
+            this.primeiro = this.primeiro.proximo;
+            return item;
+        }
+    }
+
+    public void inverterFila() {
+        if (this.primeiro == null) {
+            return; // Fila vazia
+        }
+
+        no anterior = null;
+        no atual = this.primeiro;
+        no proximo;
+
+        while (atual != null) {
+            proximo = atual.proximo;
+            atual.proximo = anterior;
+            anterior = atual;
+            atual = proximo;
+        }
+
+        this.primeiro = anterior;
+    }
+
+    public void imprimirFila() {
+        if (this.primeiro == null) {
+            System.out.println("Fila vazia");
+        } else {
+            no aux = this.primeiro;
+            while (aux != null) {
+                System.out.println(aux.valor);
+                aux = aux.proximo;
+            }
+        }
+    }
+
+}
+
+class programa {
+    public static void main(String[] args) {
+
+        fila f = new fila();
+
+        f.enfileirar(10);
+        f.enfileirar(11);
+        f.enfileirar(12);
+        f.enfileirar(13);
+        f.imprimirFila();
+        f.inverterFila();
+        f.imprimirFila();
+
+    }
+}
