@@ -1,0 +1,121 @@
+public class no{
+    String palavra;
+    no proximo;
+    no anterior;
+
+    public no(String palavra){
+        this.palavra = palavra;
+        this.proximo = null;
+        this.anterior = null;
+    }
+}
+
+public class ListaEncadeada{
+    no inicio;
+
+    public ListaEncadeada(){
+        this.inicio = null;
+    }
+
+    public void adicionar(String palavra){
+        if(this.inicio == null){
+            this.inicio = new no(palavra);
+        } else if(this.inicio.palavra.equals(palavra)){
+            this.inicio = this.inicio.proximo;
+        } else { 
+            no atual = this.inicio;
+            no anterior = this.inicio;
+
+            while(atual.proximo != null){
+                anterior = atual;
+                atual = atual.proximo;
+            }
+
+            atual.anterior = anterior;
+            atual.proximo = new no(palavra);
+            atual = atual.proximo;
+        }
+
+    }
+
+    public void remover(String palavra){
+        if(this.inicio == null){
+            System.out.println("Lista vazia");
+        } else if(this.inicio.palavra.equals(palavra)){
+            this.inicio = this.inicio.proximo;
+        } else { 
+            no atual = this.inicio;
+            no anterior = this.inicio;
+
+            while(!atual.palavra.equals(palavra)){
+                anterior = atual;
+                atual = atual.proximo;
+            }
+            
+            anterior.proximo = atual.proximo;
+            
+            if (atual.proximo != null) {
+                atual.proximo.anterior = atual.anterior;
+            } else {
+                atual.proximo = this.inicio;
+            }
+        }
+
+    }
+
+    public void imprimirLista(){
+            no atual = this.inicio;
+            no anterior = this.inicio;
+
+            while(atual != null){
+                System.out.println(atual.palavra);
+                anterior = atual;
+                atual = atual.proximo;
+       
+        }
+    }
+
+    public boolean verificarPalindromo(String palavra){
+        String guardarPalavraInv = "";
+        String palavraVer = palavra.toLowerCase();
+        no atual = this.inicio;
+        no anterior = this.inicio;
+
+        while(!atual.palavra.equals(palavra)){
+            anterior = atual;
+            atual = atual.proximo;
+        }
+
+        if(atual.palavra.equals(palavraVer)){
+            for (int i = palavra.length() - 1; i >= 0; i--){
+                guardarPalavraInv += palavra.charAt(i);
+            }
+        } 
+
+        return guardarPalavraInv.equals(palavraVer);
+    }
+
+}
+
+public class programa{
+    public static void main(String[] args){
+
+        ListaEncadeada lista = new ListaEncadeada();
+
+        lista.adicionar("carro1");
+        lista.adicionar("carro2");
+        lista.adicionar("carro3");
+        lista.adicionar("ama");
+
+        lista.imprimirLista();
+
+        if(lista.verificarPalindromo("ama")){
+            System.out.println("A palavra é um palíndromo");
+        } else {
+            System.out.println("A palavra não é um palíndromo");
+        } 
+
+
+
+    }
+}
