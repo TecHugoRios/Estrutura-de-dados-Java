@@ -1,0 +1,93 @@
+public class no{
+  public int valor;
+  public no proximo;
+  public no anterior;
+
+  public no(int valor){
+      this.valor = valor;
+      this.proximo = null;
+      this.anterior = null;
+  }
+}
+
+
+public class ListaDEncadeada{
+    no inicio;
+
+    public ListaDEncadeada(){
+        this.inicio = null;
+    }
+
+    public void adicionar(int valor){
+        if(this.inicio == null){
+            this.inicio = new no(valor);
+        } else if (this.inicio.valor == valor) {
+            this.inicio = this.inicio.proximo;
+        } else {
+            no atual = this.inicio;
+            no anterior = this.inicio;
+
+            while(atual.proximo != null){
+                anterior = atual;
+                atual = atual.proximo;
+            }
+
+            atual.anterior = anterior; // o anterior do atual recebe o valor do anterior que foi atualizando quando estava percorrendo
+            atual.proximo = new no(valor);
+        }
+    }
+
+    public void remover(int valor){
+        if(this.inicio == null){
+            System.err.println("Lista Vazia!");
+        } else if (this.inicio.valor == valor) {
+            this.inicio = this.inicio.proximo;
+        } else {
+            no atual = this.inicio;
+            no anterior = this.inicio;
+
+            while(atual.valor != valor){
+                anterior = atual;
+                atual = atual.proximo;
+            }
+
+            anterior.proximo = atual.proximo; // o proximo do anterior pega a referencia do proximo do atual e aponta para o proximo nó
+            atual.proximo.anterior = atual.anterior; // o anterior do proximo do atual fica com a referencia do anterior do atual
+
+        }
+    }
+
+    @SuppressWarnings("unused") // linha apenas para evitar ficar mostrando aviso no vscode, não afeta no código, opcional
+    public void imprimirLista(int valor){
+        no atual = this.inicio;
+        no anterior = this.inicio;
+
+        while(atual != null){
+            System.out.println(atual.valor);
+            anterior = atual;
+            atual = atual.proximo;
+        }
+
+    }
+
+    public int tamanho(){
+        no atual = this.inicio;
+        int tamanho = 0;
+
+        while(atual != null){
+            atual = atual.proximo;
+            tamanho++;
+        }
+        return tamanho;
+
+    }
+}
+
+public class programa{
+  public static void main(String[] args){
+    ListaDEncadeada lista = new ListaDEncadeada(valor);
+    lista.adicionar(1);
+    lista.remover(1);
+    lista.imprimirLista();
+  }
+}
