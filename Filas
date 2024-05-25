@@ -1,0 +1,146 @@
+public class no{
+    no proximo;
+    int valor;
+
+    public no(int valor){
+        this.proximo = null;
+        this.valor = valor;
+    }
+
+}
+
+public class fila{
+    no primeiro;
+    no ultimo;
+
+
+    public fila(){
+        this.primeiro = this.ultimo = null;
+    }
+
+    public boolean Vazia(){
+        return this.primeiro == null;
+    }
+
+    public boolean Cheia(){
+        return tamanhoFila() == 6;
+    }
+
+    public void enfileirar(int valor){
+        no inserir = new no(valor);
+        if(Vazia()){
+            this.primeiro = this.ultimo = inserir;
+        } else {
+            this.ultimo.proximo = inserir;
+            this.ultimo = this.ultimo.proximo;
+        }
+    }
+
+    public int desenfileirar(){
+        if(Vazia()){
+            return -1;
+        } else {
+             int item = this.primeiro.valor;
+             this.primeiro = this.primeiro.proximo;
+             System.err.println("Item retirado: " + item);
+             return item;
+        }
+    }
+
+    public void imprimirFila(){
+        if(Vazia()){
+            System.err.println("Fila vazia");
+        } else {
+            while(this.primeiro != null){
+                int item = this.primeiro.valor;
+                System.out.println(item);
+                this.primeiro = this.primeiro.proximo;
+            }
+        }
+    }
+
+    public int tamanhoFila(){
+        int tamanho = 0;
+        if(Vazia()){
+            System.err.println("Erro: Fila Vazia!");
+        } else {
+            while(this.primeiro != null){
+                tamanho++;
+                this.primeiro = this.primeiro.proximo;
+            }
+        }
+        return tamanho;
+    }
+}
+
+public class filaAux {
+    public no primeiro;
+    public no ultimo;
+
+    public filaAux(){
+        this.primeiro = this.ultimo = null;
+    }
+
+    public boolean Vazia(){
+        return this.primeiro == null;
+    }
+
+    public void enfileirar(int item){
+        no inserir = new no(item);
+        if(Vazia()){
+            this.primeiro = this.ultimo = inserir;
+        } else {
+            this.ultimo.proximo = inserir;
+            this.ultimo = this.ultimo.proximo;
+        }
+    }
+
+    public void imprimirFila(){
+        if(Vazia()){
+            System.err.println("Fila vazia");
+        } else {
+            while(this.primeiro != null){
+                int item = this.primeiro.valor;
+                System.out.println(item);
+                this.primeiro = this.primeiro.proximo;
+            }
+        }
+    }
+
+
+
+
+}
+
+public class programa{
+    public static void main(String[] args){
+
+        fila f = new fila();
+        filaAux faux = new filaAux();
+
+        f.enfileirar(1);
+        f.enfileirar(2);
+        f.enfileirar(3);
+        f.enfileirar(4);
+        f.enfileirar(5);
+        f.enfileirar(6);
+
+        if(faux.Vazia()){
+            do{
+                faux.enfileirar(f.desenfileirar());
+            } while(!f.Vazia());
+        }
+
+        if(f.Vazia()){
+            for(int i = 0; i < 6; i++){
+                f.enfileirar(i);
+            }
+        }
+
+        System.out.println("Fila Normal: ");
+        f.imprimirFila();
+        System.out.println("Fila Auxiliar: ");
+        faux.imprimirFila();
+
+    }
+}
