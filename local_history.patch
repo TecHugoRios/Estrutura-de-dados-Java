@@ -1,0 +1,17 @@
+Index: src/no.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/no.java b/src/no.java
+--- a/src/no.java	
++++ b/src/no.java	(date 1716607554481)
+@@ -7,7 +7,4 @@
+         this.valor = valor;
+     }
+ 
+-
+-
+-
+ }
+\ No newline at end of file
